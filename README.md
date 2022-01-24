@@ -23,21 +23,21 @@ TableLayout을 이용하여 계산기의 형태로 UI를 구성한 뒤, 사용�
   * Main Thread가 아닌 다른 Thread에서는 네트워크 작업이나 DB 작업과 같이 Main Thread에서 실행하기엔 무거운 작업들을 사용
   * Ex: `Thread(Runnable { … }).start()`
   *     Thread(Runnable {
-        db.historyDao().getAll().reversed().forEach {
-    
-            runOnUiThread {
+            db.historyDao().getAll().reversed().forEach {
 
-                val historyView =
+                runOnUiThread {
 
-                    LayoutInflater.from(this).inflate(R.layout.history_row, null, false)
+                    val historyView =
 
-                historyView.findViewById<TextView>(R.id.expressionTextView).text = it.expression
+                        LayoutInflater.from(this).inflate(R.layout.history_row, null, false)
 
-                historyView.findViewById<TextView>(R.id.resultTextView).text = "= ${it.result}"
+                    historyView.findViewById<TextView>(R.id.expressionTextView).text = it.expression
 
-                historyLinearLayout.addView(historyView)
+                    historyView.findViewById<TextView>(R.id.resultTextView).text = "= ${it.result}"
 
-             }}}).start()
+                    historyLinearLayout.addView(historyView)
+
+                 }}}).start()
 
   *	Thread 작업 후 다시 UI에 그리기 위해서는 runOnUiThread 를 사용
 * Room
